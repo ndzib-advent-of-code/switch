@@ -9,13 +9,32 @@ body {
     justify-content: center;
 }
 
-body:has(.switch-controller:checked) {
+body {
     animation: darken;
     animation-duration: 1s;
     animation-fill-mode: forwards;
 }
 
-.switch {
+.controller {
+    display: none;
+}
+
+.controller:checked ~ .knob {
+    animation-name: paint-pink;
+    animation-duration: 1ms;
+    animation-fill-mode: forwards;
+}
+
+.controller:checked ~ .knob::after {
+    right: 8px;
+   animation-name: slide;
+   animation-duration: 1s;
+   animation-timing-function: ease-in;
+   border-color: #4F4F4F;
+}
+
+.knob {
+    display: block;
     cursor: pointer;
     border-radius: 500px;
     width: 180px;
@@ -26,32 +45,23 @@ body:has(.switch-controller:checked) {
     box-shadow: 0 0 5px 5px rgba(0, 0 , 0, .1);
 }
 
-.switch-controller {
-    display: none;
-}
-
-.switch:has(.switch-controller:checked) {
-    background-color: #f36f94;
-}
-
-.switch:has(.switch-controller:checked)::after {
-   right: 8px;
-   animation-name: slide;
-   animation-duration: 300ms;
-   animation-timing-function: ease-in;
-   border-color: #4F4F4F;
-}
-
-.switch::after {
+.knob::after {
     box-sizing: border-box;
     content: ' ';
-    border: 14px solid #DF2A5D;
-    background-color: white;
     position: absolute;
     height: 60px;
     width: 60px;
     border-radius: 100%;
+
+    animation-name: slide;
+    animation-duration: 1s;
+    animation-timing-function: ease-in;
+    animation-direction: reverse;
+
+    border: 14px solid #DF2A5D;
+    background-color: rgba(255, 255, 255, .9);
 }
+
 
 @keyframes slide {
     from {
@@ -59,8 +69,9 @@ body:has(.switch-controller:checked) {
     }
 }
 
-@keyframes darken {
+
+@keyframes paint-pink {
     to {
-        background-color: rgb(1, 12, 37);
+        background-color: #f36f94;
     }
 }
